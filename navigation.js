@@ -1,6 +1,13 @@
 function startApp() {
+    //sessionStorage.clear()
 
-
+    const kinveyBaseUrl="https://baas.kinvey.com/"
+    const kinveyAppKey='kid_HkEtOhDS'
+    const kinveyAppSecret='ca6698894cca478cac51ac2d587ac31a'
+    const kinveyAppAuthHeaders={
+        'Authorization':'Basic '+
+        btoa(kinveyAppKey+":"+kinveyAppSecret)
+    }
 //navigation start
 
     showHideMenuLinks();
@@ -10,8 +17,8 @@ function startApp() {
     $('#linkHome').click(showHomeView)
     $('#linkLogin').click(showLoginView)
     $('#linkRegister').click(showRegisterView)
-    $('#linkListBooks').click(listBooks)
-    $('#linkCreateBook').click(showCreateBookView)
+    $('#linkListPosts').click(listPosts)
+    $('#linkCreatePost').click(showCreatePostView)
     $('#linkLogout').click(logoutUser)
 
     function showHideMenuLinks() {
@@ -20,15 +27,15 @@ function startApp() {
             //We have logged in user
             $("#linkLogin").hide()
             $("#linkRegister").hide()
-            $("#linkListBooks").show()
-            $("#linkCreateBook").show()
+            $("#linkListPosts").show()
+            $("#linkCreatePost").show()
             $("#linkLogout").show()
         } else {
             //No logged in user
             $("#linkLogin").show()
             $("#linkRegister").show()
-            $("#linkListBooks").hide()
-            $("#linkCreateBook").hide()
+            $("#linkListPosts").hide()
+            $("#linkCreatePost").hide()
             $("#linkLogout").hide()
         }
     }
@@ -53,10 +60,11 @@ function startApp() {
         showView('viewRegister')
     }
 
-    function showCreateBookView() {
-        $('#formCreateBook').trigger('reset')
-        showView('viewCreateBook')
+    function showCreatePostView() {
+        $('#formCreatePost').trigger('reset')
+        showView('viewCreatePost')
     }
+
 
     function handleAjaxError(response) {
         let errorMsg = JSON.stringify(response)
@@ -82,7 +90,7 @@ function startApp() {
             $('#errorBox').fadeOut()
         }, 3000)
     }
-    function listBooks() {
+    function listPosts() {
         
     }
     function logoutUser() {
@@ -90,4 +98,6 @@ function startApp() {
     }
 
 //navigation ends
+
 }
+
