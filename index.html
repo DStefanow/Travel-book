@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Travel Blog</title>
-    <script src="scripts/jquery-3.1.1.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.1.min.js"></script>
     <script src="scripts/navigation.js"></script>
     <link rel="stylesheet" type="text/css" href="style/styles.css">
     <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans" rel="stylesheet">
@@ -71,12 +71,12 @@
                         <th>Title</th>
                         <th>Author</th>
                         <th>Description</th>
-                        <th>Actions</th>
+
                     </tr>
                     <tr>
-                        <td>Book title</td>
-                        <td>Book author</td>
-                        <td>Book description</td>
+                        <td>Post title</td>
+                        <td>Post author</td>
+                        <td>Post description</td>
                         <td>
                             <a href="#">[Delete]</a>
                             <a href="#">[Edit]</a>
@@ -107,12 +107,12 @@
                     <label class="login-field-icon fui-user" for="Img"></label>
                 </div>
 
-                <div><input type="button" id="buttonCreateBook" value="Create"></div>
+                <div><input type="button" id="buttonCreatePost" value="Create"></div>
             </form>
         </div>
         <div id="viewEditPost">
 
-                <h1 class="titleForm">Edit existing book</h1>
+                <h1 class="titleForm">Edit existing Post</h1>
                 <form id="formEditPost" class="form">
                     <div><input type="hidden" name="id" required/></div>
                     <div>Title:</div>
@@ -121,7 +121,7 @@
                     <div><input type="text" name="author" required/></div>
                     <div>Description:</div>
                     <div><textarea name="descr" rows="10" required></textarea></div>
-                    <div><input type="button" id="buttonEditBook" value="Edit"></div>
+                    <div><input type="button" id="buttonEditPost" value="Edit"></div>
                 </form>
 
         </div>
