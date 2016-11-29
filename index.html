@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Travel Blog</title>
+    <script src="scripts/jquery-3.1.1.min.js"></script>
+    <script src="scripts/navigation.js"></script>
+    <link rel="stylesheet" type="text/css" href="style/styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans" rel="stylesheet">
+</head>
+<body onload="startApp()">
+<div id="menu" class="menu">
+    <ul>
+        <li> <a href="#" id="linkHome">Home</a></li>
+        <li> <a href="#" id="linkLogin">Login</a></li>
+        <li> <a href="#" id="linkRegister">Register</a></li>
+        <li> <a href="#" id="linkListPosts">Posts</a></li>
+        <li> <a href="#" id="linkCreatePost">Create Post</a></li>
+        <li> <a href="#" id="linkLogout">Logout</a></li>
+
+    </ul>
+    <span id="loggedInUser"></span>
+</div>
+<div id="main">
+    <div id="navigation">
+        <div id="loadingBox">Loading...</div>
+        <div id="infoBox">Info</div>
+        <div id="errorBox">Error</div>
+        <div id="viewHome">
+            <h1 class="title">Welcome</h1>
+            <p class="body-text">Welcome to our Travel Blog.</p>
+            <br><br>
+        </div>
+        <div id="viewLogin">
+
+            <h1 class="titleForm">Please login </h1>
+            <form id="formLogin" class="form">
+                <div class="control-group">
+                    <input type="text" class="field" value="" placeholder="username" id="login_name" name="username">
+                    <label class="login-field-icon fui-user" for="login_name"></label>
+                </div>
+
+                <div class="control-group">
+                    <input type="password" class="field" value="" placeholder="password" id="login-pass" name="passwd">
+                    <label class="login-field-icon fui-lock" for="login-pass"></label>
+                </div>
+                <div><input type="button" id="buttonLoginUser" value="Login"/></div>
+            </form>
+
+        </div>
+        <div id="viewRegister">
+            <h1 class="titleForm"> Please register here</h1>
+            <form id="formRegister" class="form">
+                <div class="control-group">
+                    <input type="text" class="field" value="" placeholder="username" id="register_name" name="username">
+                    <label class="login-field-icon fui-user" for="login_name"></label>
+                </div>
+
+                <div class="control-group">
+                    <input type="password" class="field" value="" placeholder="password" id="register_pass" name="passwd">
+                    <label class="login-field-icon fui-lock" for="login-pass"></label>
+                </div>
+                <div><input type="button" id="buttonRegisterUser" value="Register"/></div>
+            </form>
+        </div>
+        <div id="viewPosts">
+            <h1 class="titleForm">Posts</h1>
+            <div id="posts">
+                <table >
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                    <tr>
+                        <td>Book title</td>
+                        <td>Book author</td>
+                        <td>Book description</td>
+                        <td>
+                            <a href="#">[Delete]</a>
+                            <a href="#">[Edit]</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="viewCreatePost">
+            <h1 class="titleForm">Create new post</h1>
+            <form id="formCreatePost" class="form">
+                <div class="control-group">
+                    <input type="text" class="field" value="" placeholder="Title" id="Title" name="title">
+                    <label class="login-field-icon fui-user" for="Title"></label>
+                </div>
+                <div class="control-group">
+                    <input type="text" class="field" value="" placeholder="Author" id="Author" name="author">
+                    <label class="login-field-icon fui-user" for="Author"></label>
+                </div>
+                <div>
+                    <textarea rows="10" value="" placeholder="Description" id="Description" name="descr"></textarea>
+                    <label class="login-field-icon fui-user" for="Description"></label>
+                </div>
+
+                <div><input type="date" name="datePublished" required /></div>
+                <div class="control-group">
+                    <input type="text" class="field" value="" placeholder="Image url" id="Img" name="image">
+                    <label class="login-field-icon fui-user" for="Img"></label>
+                </div>
+
+                <div><input type="button" id="buttonCreateBook" value="Create"></div>
+            </form>
+        </div>
+        <div id="viewEditPost">
+
+                <h1 class="titleForm">Edit existing book</h1>
+                <form id="formEditPost" class="form">
+                    <div><input type="hidden" name="id" required/></div>
+                    <div>Title:</div>
+                    <div><input type="text" name="title" required/></div>
+                    <div>Author:</div>
+                    <div><input type="text" name="author" required/></div>
+                    <div>Description:</div>
+                    <div><textarea name="descr" rows="10" required></textarea></div>
+                    <div><input type="button" id="buttonEditBook" value="Edit"></div>
+                </form>
+
+        </div>
+    </div>
+</div>
+<div id="footer">
+    Travel Blog - Simple SPA Application
+</div>
+</body>
+</html>
