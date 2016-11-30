@@ -1,6 +1,8 @@
-body{
+html body{
     margin: 0;
     padding: 0;
+    height: 100%;
+
 }
 #menu {
 
@@ -15,8 +17,7 @@ body{
     z-index:1;
     text-align: center;
     padding: 2px 1px;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
+
 }
 
 #menu ul {
@@ -71,6 +72,11 @@ div>#navigation>div{
     display: none;
     padding: 20px 5px;
 }
+div>#main{
+    background-image:url("http://1d72.com/wp-content/uploads/2016/05/travel-image-background1.jpg");  
+
+}
+
 .content-wrapper {
     display: inline-block;
     width:100%;
@@ -239,15 +245,11 @@ table tr:hover td{
     background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);
 }
 
-#content {
-    padding-bottom:100px; /* Height of the footer element */
-}
 
 #footer {
     background-color:rgb(255, 165, 21);
     background: -webkit-gradient(linear, left top, left bottom, from(rgb(255, 165, 21)), to(yellow));
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
+
     color:white;
     text-shadow:1px 1px 2px black;
     transition: 0.3s all ease-in-out;
@@ -257,9 +259,9 @@ table tr:hover td{
     z-index:1;
     text-align: center;
     padding: 10px 5px;
-    width:100%;
+    width:99.4%;
     height:50px;
-    position:relative;
+    position:static;
     bottom:0;
     left:0;
 }
