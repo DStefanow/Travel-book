@@ -158,7 +158,7 @@ function startApp() {
         let pattern = /^[A-za-z0-9]+$/g;
         let testPattern = new RegExp(pattern);
         let trueOrFalse = testPattern.test(registerData.username);
-        alert(trueOrFalse);
+        
         if(trueOrFalse==false) {
             showValidationError("username", "Username may only contain letters and digits");
 
@@ -200,9 +200,9 @@ function startApp() {
     }
     function logoutUser() {
         sessionStorage.clear();
-        showInfo('You have logged out.');
         showHideMenuLinks();
         showView('homeView');
+        showInfo('You have logged out.');
 
     }
     function showValidationError(fieldName, errorMsg) {
