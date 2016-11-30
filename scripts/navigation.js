@@ -67,7 +67,7 @@ function startApp() {
 
 
     function handleAjaxError(response) {
-        // returns descriptions of an error(from Kinvey) as text
+    // returns descriptions of an error(from Kinvey) as text
         let errorMsg = JSON.stringify(response);
         if (response.readyState === 0)
             errorMsg = "Cannot connect due to network error.";
@@ -106,21 +106,36 @@ function startApp() {
 
 
     function loginUser(){
+
         let loginData = {
             username: $('#formLogin input[name=username]').val(),
             password: $('#formLogin input[name=passwd]').val()
-            // TODO : VALIDATIONS
+
         };
-        $.ajax({
-            method: "POST",
-            url: kinveyBaseUrl + "user/" + kinveyAppKey + "/login",
-            headers: kinveyAppAuthHeaders,
-            data: loginData,
 
-            success: loginSuccess,
-            error: handleAjaxError
+        if(loginData.username.length>=20){
 
-        });
+            showValidationError("username", "Username is too long.");
+
+        }
+       if(loginData.password.length>=20){
+            showValidationError("passwd", "Password is too long.")
+
+        }
+
+        else {
+            $.ajax({
+                method: "POST",
+                url: kinveyBaseUrl + "user/" + kinveyAppKey + "/login",
+                headers: kinveyAppAuthHeaders,
+                data: loginData,
+
+                success: loginSuccess,
+                error: handleAjaxError
+
+            });
+
+        }
         function loginSuccess(userInfo){
             showView('viewHome');
             showInfo('Login was successful');
@@ -138,8 +153,36 @@ function startApp() {
         let registerData = {
             username: $('#formRegister input[name=username]').val(),
             password: $('#formRegister input[name=passwd]').val()
-            // TODO : VALIDATIONS
+
         };
+        let pattern = /^[A-za-z0-9]+$/g;
+        let testPattern = new RegExp(pattern);
+        let trueOrFalse = testPattern.test(registerData.username);
+
+        if(trueOrFalse==false) {
+            showValidationError("username", "Username may only contain letters and digits");
+
+        }
+       else if(registerData.username.length>=20){
+
+            showValidationError("username", "Username is too long.");
+
+        }
+        else if(registerData.password.length>=20){
+            showValidationError("passwd", "Password is too long.")
+
+        }
+        else if(registerData.username.length<4){
+
+            showValidationError("username", "Username is too short.");
+
+        }
+        else if(registerData.password.length<4){
+            showValidationError("passwd", "Password is too short.")
+
+        }
+      
+        else {
         $.ajax({
             method: "POST",
             url: kinveyBaseUrl + "user/" + kinveyAppKey,
@@ -149,8 +192,9 @@ function startApp() {
             error: handleAjaxError
 
         });
+        }
         function registerSuccess(userInfo){
-            showView('viewLogin');
+            showView('viewPosts');
             showInfo('Register was successful');
             sessionStorage.setItem("username", userInfo.username);
             sessionStorage.setItem("authToken", userInfo._kmd.authtoken);
@@ -159,10 +203,10 @@ function startApp() {
 
     }
     function createPost() {
-
+        
     }
     function editPost() {
-
+        
     }
     function logoutUser() {
         sessionStorage.clear();
@@ -171,4 +215,21 @@ function startApp() {
         showView('viewHome');
 
     }
+    function showValidationError(fieldName, errorMsg) {
+
+        let field = $("input[name='" + fieldName + "'], textarea[name='" + fieldName + "']");
+        field.after(
+
+            $("<div class='validation-error'>").text(errorMsg)
+        );
+        setTimeout(function () {
+            $('.validation-error').fadeOut();
+        }, 3000);
+
+        field.focus();
+
+    }
+
 }
+
+
