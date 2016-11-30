@@ -112,7 +112,7 @@ function startApp() {
             password: $('#formLogin input[name=passwd]').val()
 
         };
-      
+
         if(loginData.username.length>=20){
 
             showValidationError("username", "Username is too long.");
