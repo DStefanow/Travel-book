@@ -1,0 +1,101 @@
+
+body {
+    margin-top: 50px; /* Required margin for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+
+.image-bg-fluid-height,
+.image-bg-fixed-height {
+    text-align: center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+.image-bg-fluid-height {
+	background: url('http://www.belousa.com/data1/images/gran_canyon.jpg') no-repeat center center scroll;
+    padding: 100px 0;
+}
+
+.image-bg-fixed-height {
+	background: url('http://cdn.aloe-vera-gel-shop.com/newshop/wp-content/uploads/2016/09/bg-join-forever.png') no-repeat center center scroll;
+    height: 450px;
+}
+
+.img-center {
+	margin: 0 auto;
+}
+
+section {
+    padding: 75px 0;
+}
+
+.section-heading {
+    margin: 30px 0;
+    font-size: 4em;
+}
+
+.section-lead {
+    margin: 30px 0;
+}
+
+.section-paragraph {
+    margin: 30px 0;
+}
+
+footer {
+    padding-bottom: 50px;
+    color: white;
+    background: #333;
+}
+
+footer p{
+    margin-top: 2em;
+    text-align: center;
+}
+
+@media(max-width:768px) {
+    section {
+        padding-top: 25px;
+        padding-bottom: 25px;
+    }
+
+    .section-heading {
+        font-size: 2em;
+    }
+}
+
+#menu a {
+    display:none;
+}
+
+#infoBox, #errorBox, #loadingBox {
+    width: 100%;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    transition: .5s ease-in;
+}
+
+#loadingBox {
+    background: #7CB3E9;
+    border-radius: 10px;
+    width:99.5%;
+}
+
+#infoBox {
+    background: #393;
+    border-radius: 10px;
+    width:99.5%;
+}
+
+#errorBox {
+    background: #F50;
+    border-radius: 10px;
+    width:99.5%;
+}
+
+#navigation > div{
+    display: none;
+    padding: 20px 5px;
+}
