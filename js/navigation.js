@@ -18,6 +18,7 @@ function startApp() {
     $('#linkLogin').click(showLoginView);
     $('#linkRegister').click(showRegisterView);
     $('#linkListPosts').click(listPosts);
+  //  $('#linkUploadPhoto').click(uploadPhotoView);
     $('#linkCreatePost').click(showCreatePostView);
     $('#linkLogout').click(logoutUser);
 
@@ -27,6 +28,7 @@ function startApp() {
             //We have logged in user
             $("#linkLogin").hide();
             $("#linkRegister").hide();
+           // $("#linkUploadPhoto").show();
             $("#linkListPosts").show();
             $("#linkCreatePost").show();
             $("#linkLogout").show()
@@ -65,6 +67,10 @@ function startApp() {
         $('#formCreatePost').trigger('reset');
         showView('viewCreatePost')
     }
+  // function uploadPhotoView() {
+  //     $('#formUploadPhoto').trigger('reset');
+  //     showView('viewUploadPhoto')
+  // }
 
 
     function handleAjaxError(response) {
@@ -101,6 +107,7 @@ function startApp() {
     $("#buttonRegisterUser").click(registerUser);
     $("#buttonCreatePost").click(createPost);
     $("#buttonEditPost").click(editPost);
+    $("#buttonUploadPhoto").click(uploadPhoto);
 
 
 
@@ -149,7 +156,9 @@ function startApp() {
     function listPosts() {
         showView('viewListPosts')
     }
-
+   //function uploadPhoto() {
+   //
+   // }
     function registerUser() {
         let registerData = {
             username: $('#formRegister input[name=username]').val(),
