@@ -17,7 +17,7 @@
 <body onload="startApp()">
 
 <!-- Navigation section -->
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -57,7 +57,7 @@
             <span id="loggedInUser"></span>
         </div>
     </div>
-</nav>
+</div>
 
 <!-- Ajax response -->
 
@@ -65,6 +65,11 @@
 <header class="image-bg-fluid-height" id="viewHome">
     <img class="img-responsive img-center" src="./images/logo.jpg" alt="logo"> <!-- Add the logo here -->
 </header>
+<div id="navigation">
+    <div id="loadingBox">Loading...</div>
+    <div id="infoBox">Info</div>
+    <div id="errorBox">Error</div>
+</div>
 <!-- Content Section -->
 <section id="about-section">
     <div class="container">
@@ -81,11 +86,7 @@
 <!-- Fixed Height Image Aside -->
     <!-- Image backgrounds are set within the full-width-pics.css file. -->
     <aside class="image-bg-fixed-height"></aside>
-    <div id="navigation">
-        <div id="loadingBox">Loading...</div>
-        <div id="infoBox">Info</div>
-        <div id="errorBox">Error</div>
-    </div>
+
     <!-- Login Section -->
     <section id="viewLogin">
         <div class="container">

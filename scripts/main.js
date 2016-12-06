@@ -263,7 +263,62 @@ function startApp() {
 
     }
     function listPosts() {
-        showView('viewListPosts')
+
+        let getKinveyUserAuthHeaders = {
+            'Authorization': 'Kinvey ' + authTokenForUpload,
+            'Content-Type': 'application/json'
+
+        };
+            $("#posts").empty()
+            showView('viewPosts')
+
+            $.ajax({
+                method: 'GET',
+                url: kinveyBaseUrl + 'appdata/' + kinveyAppKey + '/posts',
+                headers: getKinveyUserAuthHeaders,
+                success: loadPostsSuccess,
+                error: handleAjaxError
+            })
+            function loadPostsSuccess(posts) {
+                showInfo('Posts loaded.')
+                if (posts.length == 0) {
+                    $('#posts').text('No posts.')
+                } else {
+                    let postsTable = $('<table>')
+                        .append($('<tr>').append(
+                            '<th>Title</th><th>Author</th>',
+                            '<th>Description</th><th>Actions</th>'))
+                    for (let post of posts)
+                        appendPostRow(post, postsTable)
+                    $('#posts').append(postsTable)
+                }
+            }
+
+            function appendPostRow(post, postsTable) {
+                let links = []
+                let deleteLink = $('<a href="#">[Delete]</a>')
+                    .click(function () {
+                        deletePost(post._id)
+                    })
+                let editLink = $('<a href="#">[Edit]</a>')
+                    .click(function () {
+                        loadPostForEditSuccess(post._id)
+                    })
+                links.push(deleteLink)
+                links.push(" ")
+                links.push(editLink)
+
+
+                postsTable.append($('<tr>').append(
+                    $('<td>').text(post.title),
+                    $('<td>').text(post.contentPost),
+                    $('<td>').text(post.datePublished),
+                    $('<td>').text($('<img>').attr('src',post.image)),
+                    $('<td>').append(links)
+                ))
+
+
+            }
     }
     //function uploadPhoto() {
     //
