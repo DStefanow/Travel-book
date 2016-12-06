@@ -12,76 +12,73 @@
 
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/navigation.js"></script>
+    <script src="js/main.js"></script>
 </head>
 <body onload="startApp()">
 
-    <!-- Navigation section -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Travel book</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Travel Book</a>
+<!-- Navigation section -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Travel book</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Travel Book</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div id="menu" class="menu">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#about-section" id="linkHome">About</a>
+                    </li>
+                    <li>
+                        <a href="#viewLogin" id="linkLogin">Login</a>
+                    </li>
+                    <li>
+                        <a href="#viewRegister" id="linkRegister">Register</a>
+                    </li>
+                    <li>
+                        <a href="#viewPosts" id="linkListPosts">Show Posts</a>
+                    </li>
+                    <li>
+                        <a href="#viewPosts" id="linkUploadPhoto">Upload Photo</a>
+                    </li>
+                    <li>
+                        <a href="#viewCreatePost" id="linkCreatePost">Create Post</a>
+                    </li>
+                    <li>
+                        <a href="#" id="linkLogout">Logout</a>
+                    </li>
+                </ul>
             </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <div id="menu" class="menu">
-                    <ul class="nav navbar-nav">
-                        <li>
-                            <a href="#about-section" id="linkHome">About</a>
-                        </li>
-                        <li>
-                            <a href="#viewLogin" id="linkLogin">Login</a>
-                        </li>
-                        <li>
-                            <a href="#viewRegister" id="linkRegister">Register</a>
-                        </li>
-                        <li>
-                            <a href="#viewPosts" id="linkListPosts">Show Posts</a>
-                        </li>
-                        <li>
-                            <a href="#viewPosts" id="linkUploadPhoto">Upload Photo</a>
-                        </li>
-                        <li>
-                            <a href="#viewCreatePost" id="linkCreatePost">Create Post</a>
-                        </li>
-                        <li>
-                            <a href="#" id="linkLogout">Logout</a>
-                        </li>
-                    </ul>
-                </div>
-                <span id="loggedInUser"></span>
+            <span id="loggedInUser"></span>
+        </div>
+    </div>
+</nav>
+
+<!-- Ajax response -->
+
+
+<header class="image-bg-fluid-height" id="viewHome">
+    <img class="img-responsive img-center" src="./images/logo.jpg" alt="logo"> <!-- Add the logo here -->
+</header>
+<!-- Content Section -->
+<section id="about-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="section-heading">About the site</h1>
+                <p class="lead section-lead">If you want to share memories from trips with your friends that is the right place!</p>
+                <p class="section-paragraph">Create account. Upload photos and enjoy, you can upload what you want. Lets your friends know where have you been. You can add tags and content to the pictures, or comment others ... Your choice!</p>
             </div>
         </div>
-    </nav>
-
-    <!-- Ajax response -->
-
-
-    <header class="image-bg-fluid-height" id="viewHome">
-        <img class="img-responsive img-center" src="./images/logo.jpg" alt="logo"> <!-- Add the logo here -->
-    </header>
-    <!-- Content Section -->
-    <section id="about-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="section-heading">About the site</h1>
-                    <p class="lead section-lead">If you want to share memories from trips with your friends that is the right place!</p>
-                    <p class="section-paragraph">Create account. Upload photos and enjoy, you can upload what you want. Lets your friends know where have you been. You can add tags and content to the pictures, or comment others ... Your choice!</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    </div>
+</section>
 <main>
-
-
-
-    <!-- Fixed Height Image Aside -->
+<!-- Fixed Height Image Aside -->
     <!-- Image backgrounds are set within the full-width-pics.css file. -->
     <aside class="image-bg-fixed-height"></aside>
     <div id="navigation">
@@ -126,8 +123,12 @@
 
 
                         <div class="control-group">
-                            <input type="password" class="field" value="" placeholder="password" id="register_pass" name="passwd">
-                            <label class="login-field-icon fui-lock" for="register_pass"></label>
+                            <input type="password" class="field" value="" placeholder="password" id="passwd" name="passwd">
+                            <label class="login-field-icon fui-lock" for="passwd"></label>
+                        </div>
+                        <div class="control-group">
+                            <input type="password" class="field" value="" placeholder="passwd-confirm" id="passwd-confirm" name="passwd-confirm">
+                            <label class="login-field-icon fui-lock" for="passwd-confirm"></label>
                         </div>
                         <div><input type="button" id="buttonRegisterUser" value="Register"/></div>
                     </form>
@@ -139,7 +140,32 @@
     <!-- Show posts -->
     <section id="viewPosts">
         <div class="container">
-
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="titleForm">Posts</h1>
+                    <div id="posts">
+                        <table >
+                            <tr>
+                                <th>Title</th>
+                                <th>Publisher</th>
+                                <th>Description</th>
+                                <th>Date Publish</th>
+                                <th>Actions</th>
+                            </tr>
+                            <tr>
+                                <td>Post title</td>
+                                <td>Post publisher</td>
+                                <td>Post description</td>
+                                <td>Post date publish</td>
+                                <td>
+                                    <a href="#">[Delete]</a>
+                                    <a href="#">[Edit]</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -147,6 +173,7 @@
     <section id="viewCreatePost">
         <div class="container">
             <div class="row">
+                <div class="col-lg-12">
                 <h1 class="titleForm">Create new post</h1>
                 <form id="formCreatePost" class="form">
                     <div class="control-group">
@@ -160,30 +187,38 @@
 
                     <div><input type="date" name="datePublished" required /></div>
 
+                    <div>
+                        <input id ="uploaded-file" type="file" style="width:220px">
 
+                    </div>
                     <div><input type="button" id="buttonCreatePost" value="Create"></div>
 
 
 
                 </form>
+                    </div>
             </div>
         </div>
         </section>
-</main>
-    <div id="test">
-        <input id ="uploaded-file" type="file" >
-        <button id="buttonUploadFile">Upload File</button>
-    </div>
-    <!-- Footer -->
-    <footer>
+    <section id="viewDetailsAd">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Powered by students from Software University</p>
+                    </div>
                 </div>
             </div>
+    </section>
+</main>
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <p>Powered by students from Software University</p>
+            </div>
         </div>
-    </footer>
+    </div>
+</footer>
 
 </body>
 </html>
