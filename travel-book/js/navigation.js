@@ -44,13 +44,21 @@ function showHideMenuLinks() {
         $('#linkCreatePost').css('display', 'block');
         $("#linkLogout").show();
         $('#linkLogout').css('display', 'block');
+        $('#viewLogin').hide();
+        $('#viewRegister').hide();
+        $('#viewPosts').show();
+        $('#viewCreatePost').show();
     } else {
         //No logged in user
         $("#linkLogin").show();
         $("#linkRegister").show();
         $("#linkListPosts").hide();
         $("#linkCreatePost").hide();
-        $("#linkLogout").hide()
+        $("#linkLogout").hide();
+        $('#viewLogin').show();
+        $('#viewRegister').show();
+        $('#viewPosts').hide();
+        $('#viewCreatePost').hide();
     }
 }
 
@@ -79,18 +87,6 @@ function showCreatePostView() {
     showView('viewCreatePost');
 }
 
-function handleAjaxError(response) {
-    // returns descriptions of an error(from Kinvey) as text
-    let errorMsg = JSON.stringify(response);
-    if (response.readyState === 0)
-        errorMsg = "Cannot connect due to network error.";
-
-    if (response.responseJSON && response.responseJSON.description)
-        errorMsg = response.responseJSON.description;
-
-    showError(errorMsg);
-}
-
 function showInfo(message) {
     //used for printing messages on the screen
     $('#infoBox').text(message);
@@ -110,64 +106,46 @@ function showError(errorMsg) {
     }, 3000);
 }
 
-function loginUser(){
-    let loginData = {
-        username: $('#formLogin input[name=username]').val(),
-        password: $('#formLogin input[name=passwd]').val()
-    };
-
-    if(loginData.username.length>=20){
-        showValidationError("username", "Username is too long.");
-    }
-
-    if(loginData.password.length>=20){
-        showValidationError("passwd", "Password is too long.");
-    }
-
-    else {
-        $.ajax({
-            method: "POST",
-            url: kinveyBaseUrl + "user/" + kinveyAppKey + "/login",
-            headers: kinveyAppAuthHeaders,
-            data: loginData,
-
-            success: loginSuccess,
-            error: handleAjaxError
-
-        });
-    }
-
-    function loginSuccess(userInfo){
-        showView('home');
-        showInfo('Login was successful');
-        sessionStorage.setItem("username", userInfo.username);
-        sessionStorage.setItem("authToken", userInfo._kmd.authtoken);
-        showHideMenuLinks(); // refreshesh the links after the sessison change
-    }
-}
-
-function listPosts() {
-    showView('viewPosts');
-    let currentUrl = kinveyBaseUrl + "appdata/" + kinveyAppKey + "/posts";
-    console.dir(currentUrl);
-
-    $.ajax({
-        method: "GET",
-        url: currentUrl,
-        headers: getKinveyUserAuthHeaders(),
-        success: loadPostsSuccess,
-        error: handleAjaxError
-    });
-
-    function loadPostsSuccess(data) {
-        console.dir(data);
-    }
-}
-
 function registerUser() {
+    let username = $('#formRegister input[name=username]');
+    let password = $('#formRegister input[name=passwd]');
+    let passwordConfirm = $('#formRegister input[name=passwd-confirm]');
+
+    $('#pass-match').remove();
+    username.css('border', 'none');
+    password.css('border', 'none');
+    passwordConfirm.css('border', 'none');
+
+    if(password.val() != passwordConfirm.val()){
+
+        $('#reg-btn').append(`<p id="pass-match">The passwords don't match!</p>`);
+
+        (e) => e.preventDefault();
+        return false;
+    }
+    else if(username.val() == "" || password.val() == "" || passwordConfirm.val() == ""){
+        if(username.val() == ""){
+            username.attr('required', 'true');
+            username.css('border', '1px solid #ef1717');
+        }
+
+        if(password.val() == ""){
+            password.attr('required', 'true');
+            password.css('border', '1px solid #ef1717');
+        }
+
+        if(passwordConfirm.val() == "") {
+            passwordConfirm.attr('required', 'true');
+            passwordConfirm.css('border', '1px solid #ef1717');
+        }
+
+        (e) => e.preventDefault();
+        return false;
+    }
+
     let registerData = {
-        username: $('#formRegister input[name=username]').val(),
-        password: $('#formRegister input[name=passwd]').val()
+        username: username.val(),
+        password: password.val()
 
     };
 
@@ -177,7 +155,6 @@ function registerUser() {
 
     if(trueOrFalse==false) {
         showValidationError("username", "Username may only contain letters and digits");
-
     }
 
     else if(registerData.username.length>=20){
@@ -204,7 +181,99 @@ function registerUser() {
         showInfo('Register was successful');
         sessionStorage.setItem("username", userInfo.username);
         sessionStorage.setItem("authToken", userInfo._kmd.authtoken);
+
+        username.val('');
+        password.val('');
+        passwordConfirm.val('');
+
         showHideMenuLinks(); // refreshesh the links after the sessison change
+    }
+}
+
+function loginUser(){
+    let username = $('#formLogin input[name=username]');
+    let password = $('#formLogin input[name=passwd]');
+
+    username.css('border', 'none');
+    password.css('border', 'none');
+
+    if(username.val() == "" || password.val() == ""){
+        if(username.val() == ""){
+            username.attr('required', 'true');
+            username.css('border', '1px solid #ef1717');
+        }
+
+        if(password.val() == ""){
+            password.attr('required', 'true');
+            password.css('border', '1px solid #ef1717');
+        }
+
+        (e) => e.preventDefault();
+        return false;
+    }
+
+    let loginData = {
+        username: username.val(),
+        password: password.val()
+    };
+
+    if(loginData.username.length>=20){
+        showValidationError("username", "Username is too long.");
+    }
+
+    if(loginData.password.length>=20){
+        showValidationError("passwd", "Password is too long.");
+    }
+
+    else {
+        $.ajax({
+            method: "POST",
+            url: kinveyBaseUrl + "user/" + kinveyAppKey + "/login",
+            headers: kinveyAppAuthHeaders,
+            data: loginData,
+
+            success: loginSuccess,
+            error: handleAjaxError
+
+        });
+    }
+
+    function loginSuccess(userInfo){
+        showView('home');
+        showInfo('Login was successful');
+
+        sessionStorage.setItem("username", userInfo.username);
+        sessionStorage.setItem("authToken", userInfo._kmd.authtoken);
+
+        username.val('');
+        password.val('');
+
+        showHideMenuLinks(); // refreshesh the links after the sessison change
+    }
+}
+
+function logoutUser() {
+    sessionStorage.clear();
+    showHideMenuLinks();
+    showView('homeView');
+    showInfo('You have logged out.');
+}
+
+function listPosts() {
+    showView('viewPosts');
+    let currentUrl = kinveyBaseUrl + "appdata/" + kinveyAppKey + "/posts";
+    console.dir(currentUrl);
+
+    $.ajax({
+        method: "GET",
+        url: currentUrl,
+        headers: getKinveyUserAuthHeaders(),
+        success: loadPostsSuccess,
+        error: handleAjaxError
+    });
+
+    function loadPostsSuccess(data) {
+        console.dir(data);
     }
 }
 
@@ -216,11 +285,16 @@ function editPost() {
 
 }
 
-function logoutUser() {
-    sessionStorage.clear();
-    showHideMenuLinks();
-    showView('homeView');
-    showInfo('You have logged out.');
+function handleAjaxError(response) {
+    // returns descriptions of an error(from Kinvey) as text
+    let errorMsg = JSON.stringify(response);
+    if (response.readyState === 0)
+        errorMsg = "Cannot connect due to network error.";
+
+    if (response.responseJSON && response.responseJSON.description)
+        errorMsg = response.responseJSON.description;
+
+    showError(errorMsg);
 }
 
 function showValidationError(fieldName, errorMsg) {
