@@ -3,6 +3,22 @@ body {
     margin-top: 50px; /* Required margin for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
 
+
+
+#menu li {
+    display: inline;
+    list-style: none;
+    margin: 5px;
+    padding: 10px;
+}
+#menu a {
+    display:none;
+
+
+    font-size: 20px;
+font-weight: 200;
+
+}
 .image-bg-fluid-height,
 .image-bg-fixed-height {
     text-align: center;
@@ -43,15 +59,17 @@ section {
     margin: 30px 0;
 }
 
-#footer {
+footer {
     padding-bottom: 50px;
     color: white;
     background: #333;
 }
 
-#footer p{
+footer p{
+
+
     margin-top: 2em;
-    text-align: center;
+    text-align: start;
 }
 
 @media(max-width:768px) {
@@ -65,9 +83,7 @@ section {
     }
 }
 
-#menu a {
-    display:none;
-}
+
 
 #infoBox, #errorBox, #loadingBox {
     width: 100%;
@@ -80,22 +96,93 @@ section {
 #loadingBox {
     background: #7CB3E9;
     border-radius: 10px;
-    width:99.5%;
+
 }
 
 #infoBox {
     background: #393;
     border-radius: 10px;
-    width:99.5%;
+
 }
 
 #errorBox {
     background: #F50;
     border-radius: 10px;
-    width:99.5%;
+
 }
 
 #navigation > div{
     display: none;
     padding: 20px 5px;
+}
+
+.titleForm{
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 10px;
+    padding: 10px;
+}
+.form{
+    margin: 0 auto;
+    background-color:#333;
+
+    color:black;
+    text-shadow:1px 1px 2px black;
+    transition: 0.3s all ease-in-out;
+    -webkit-box-shadow: 2px 0 5px gray;
+    -moz-box-shadow: 2px 0 5px gray;
+    box-shadow: 2px 0 5px gray;
+    z-index:1;
+    text-align: center;
+    width: 25%;
+    padding: 20px;
+    border-radius: 10px;
+
+}
+.control-group {
+    margin-bottom: 10px;
+}
+.field{
+    color: black;
+}
+
+input{
+    border: none;
+    box-shadow: black;
+    background: #ffffff;
+    outline: auto;
+    color:Grey;
+    padding: 5px;
+    margin: 20px;
+    font: 16px 'Open Sans', sans-serif;
+    border-bottom: 1px solid white;
+    transition: .5s ease-in;
+}
+input[type=text]{
+    border:  1px solid white;
+    color: black;
+    font: 16px 'Open Sans', sans-serif;
+}
+input[type=password]{
+    border:  1px solid white;
+    color: black;
+    font: 16px 'Open Sans', sans-serif;
+}
+
+input:focus{
+    border-color: #000;
+}
+
+input[type=button]{
+    border: 1px solid white;
+    color:black;
+    padding: 10px 25px;
+    transition: all .2s ease-in-out;
+}
+
+input[type=button]:hover{
+    background: #555;
+    border-color: #333;
+    transform: scale(1.1);
+    cursor: pointer;
 }
