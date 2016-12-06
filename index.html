@@ -12,7 +12,7 @@
 
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="scripts/main.js"></script>
 </head>
 <body onload="startApp()">
 
@@ -151,7 +151,7 @@
                                 <th>Publisher</th>
                                 <th>Description</th>
                                 <th>Date Publish</th>
-                                <th>Actions</th>
+                                <th id="imagez">Image</th>
                             </tr>
                             <tr>
                                 <td>Post title</td>
@@ -169,7 +169,40 @@
             </div>
         </div>
     </section>
+    <section id="viewEditPost" >
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="titleForm">Edit existing advertisement</h1>
+                    <form id="formEditAd" class="form">
+                        <div><input type="hidden" name="id" required /></div>
+                        <div><input type="hidden" name="publisher" required /></div>
+                        <div>Title:</div>
+                        <div><input type="text" name="title" required /></div>
+                        <div>Description:</div>
+                        <div><textarea name="description" rows="10" required></textarea></div>
+                        <div>Date Published:</div>
+                        <div><input type="date" name="datePublished" required /></div>
 
+                        <div><input type="text" name="image" required /></div>
+                        <div><input type="button" id="buttonEditAd" value="Edit" /></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <section id="viewImage" >
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="titleForm">View an image</h1>
+                    <img src="#" id="imageForLink" width="1080" height="720">
+                </div>
+            </div>
+        </div>
+
+    </section>
     <!-- Create post -->
     <section id="viewCreatePost">
         <div class="container">

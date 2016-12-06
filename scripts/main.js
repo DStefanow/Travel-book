@@ -14,14 +14,14 @@ function startApp() {
     let authTokenForUpload = "";
     function getSessionToken() {
         authTokenForUpload = sessionStorage.getItem('authToken');
-        console.log(authTokenForUpload);
+
 
     }
 
 
     $("#buttonCreatePost").click(function () {
         var file = $('#uploaded-file')[0].files[0];
-        console.log(file);
+
         let metadata = {
             '_filename' : file.name,
             'size': file.size,
@@ -81,11 +81,11 @@ function startApp() {
                 );
                 function uploadReady(success) {
                     let imageURL = success._downloadURL;
-                    console.log(imageURL);
+
                     const kinveyAuthHeaders={
                         'Authorization':"Kinvey "+sessionStorage.getItem('authToken')
                     }
-                    const kinveyUserUrl=`${kinveyBaseUrl}user/${kinveyAppKey}/${sessionStorage.getItem('userId')}`
+                                       const kinveyUserUrl=`${kinveyBaseUrl}user/${kinveyAppKey}/${sessionStorage.getItem('userId')}`
 
 
                     let advertData={
@@ -218,7 +218,9 @@ function startApp() {
     //  $("#buttonUploadPhoto").click(uploadPhoto);
 
 
-
+function imageView() {
+    showView('viewImage')
+}
 
 
     function loginUser(){
@@ -296,33 +298,45 @@ function startApp() {
 
             function appendPostRow(post, postsTable) {
                 let links = []
+
                 let deleteLink = $('<a href="#">[Delete]</a>')
                     .click(function () {
                         deletePost(post._id)
                     })
-                let editLink = $('<a href="#">[Edit]</a>')
+               // let editLink = $('<a href="#">[Edit]</a>')
+               //     .click(function () {
+               //         loadPostForEditSuccess(post._id)
+               //     }
+                let imageLink = $('<a href="#">[Image]</a>')
                     .click(function () {
-                        loadPostForEditSuccess(post._id)
+                        $('#imageForLink').attr('src', post.image);
+                        imageView()
                     })
+
                 links.push(deleteLink)
                 links.push(" ")
-                links.push(editLink)
-
-
+               // links.push(editLink)
+                links.push(" ")
+                links.push(imageLink)
+                let searchPic = new Image(100,100);
+                $("#pic").attr("src", searchPic);
                 postsTable.append($('<tr>').append(
                     $('<td>').text(post.title),
                     $('<td>').text(post.contentPost),
                     $('<td>').text(post.datePublished),
-                    $('<td>').text($('<img>').attr('src',post.image)),
-                    $('<td>').append(links)
+                $('<td>').append(links)
+
                 ))
 
 
+
             }
+
     }
     //function uploadPhoto() {
     //
     // }
+
     function registerUser() {
         let registerData = {
             username: $('#formRegister input[name=username]').val(),
@@ -376,10 +390,60 @@ function startApp() {
         }
 
     }
-    function createPost() {
 
-    }
     function editPost() {
+        let postData = {
+            title: $('#formEditPost input[name=title]').val(),
+            description: $('#formEditPost textarea[name=description]').val(),
+            datePublished: $('#formEditPost input[name=datePublished]').val(),
+
+            image: $('#formEditPost input[name=image]').val()
+        }
+        $.ajax({
+            method: "PUT",
+            url: kinveyBaseUrl + "appdata/" + kinveyAppKey +
+            "/posts/" + $('#formEditPost input[name=id]').val(),
+            headers: getKinveyUserAuthHeaders(),
+            data: postData,
+            success: editPostSuccess,
+            error: handleAjaxError
+        });
+        function editPostSuccess(response) {
+            listPosts();
+            showInfo('Post edited.');
+        }
+    }
+    //function loadPostForEditSuccess(post) {
+    //    $('#vieweditpost input[name=id]').val(post._id);
+    //    $('#vieweditpost input[name=title]').val(post.title);
+    //    $('#vieweditpost textarea[name=description]')
+    //        .val(post.description);
+    //    $('#vieweditpost input[name=datePublished]')
+    //        .val(post.datePublished);
+    //    $('#vieweditpost input[name=price]')
+    //        .val(post.price);
+    //    showView('viewEditAd');
+    //}
+    function deletePost(post) {
+        function getKinveyUserAuthHeaders() {
+            return{
+                'Authorization':'Kinvey '+ sessionStorage.getItem('authToken')
+            }
+        }
+        $.ajax({
+            method: "DELETE",
+            url:kinveyBaseUrl + "appdata/" +
+            kinveyAppKey + "/posts/" + post,
+            headers: getKinveyUserAuthHeaders(),
+            success: deletePostSuccess,
+            error: handleAjaxError
+
+        })
+        function deletePostSuccess(response) {
+            listPosts()
+            showInfo('Post deleted.')
+        }
+
 
     }
     function logoutUser() {
