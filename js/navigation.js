@@ -4,10 +4,93 @@ function startApp() {
     const kinveyBaseUrl="https://baas.kinvey.com/";
     const kinveyAppKey='kid_BkMo-LOzg';
     const kinveyAppSecret='62ce0b7f58eb4243ab649563bb94f958';
+
+
     const kinveyAppAuthHeaders={
         'Authorization':'Basic '+
         btoa(kinveyAppKey+":"+kinveyAppSecret)
+
     };
+    let authTokenForUpload = "";
+    function getSessionToken() {
+        authTokenForUpload = sessionStorage.getItem('authToken');
+        console.log(authTokenForUpload);
+
+    }
+
+
+    $("#buttonUploadFile").click(function () {
+        var file = $('#uploaded-file')[0].files[0];
+        console.log(file);
+        let metadata = {
+            '_filename' : file.name,
+            'size': file.size,
+            'mimeType': file.type
+
+        };
+        upload(metadata, file);
+
+
+    });
+
+    function upload(data, file){
+        let url = kinveyBaseUrl + "blob/" + kinveyAppKey;
+        let requestHeaders = {
+            'Authorization': 'Kinvey ' + authTokenForUpload,
+            'Content-Type': 'application/json',
+            'X-Kinvey-Content-Type': data.mimeType
+        };
+        $.ajax(
+            {
+                method:'POST',
+                url: url,
+                headers: requestHeaders,
+                data: JSON.stringify(data),
+                success: uploadSuccess,
+                error: handleAjaxError
+
+            }
+        ); function uploadSuccess (success) {
+                let innerHeaders=success._requiredHeaders;
+            innerHeaders['Content-Type'] = file.type;
+                let uploadURL = success._uploadURL;
+            let id = success._id;
+            $.ajax({
+                    method: 'PUT',
+                    url: uploadURL,
+                    headers: innerHeaders,
+                    processData: false,
+                    data: file,
+                    success: uploadPut,
+                    error: handleAjaxError
+                }
+            );
+            function uploadPut (){
+                let uploadHeaders = {
+                    'Authorization': 'Kinvey ' + authTokenForUpload,
+                    'Content-Type': 'application/json'
+                };
+            $.ajax(
+                {
+                    method: 'GET',
+                    url: kinveyBaseUrl + 'blob/' + kinveyAppKey + '/' + id,
+                    headers: uploadHeaders,
+                    success: uploadReady,
+                    error: handleAjaxError
+                }
+            );
+                function uploadReady(success) {
+                    let imageURL = success._downloadURL;
+                    console.log(imageURL);
+                }
+            }
+        }
+
+
+    }
+
+
+
 //navigation start
 
     showHideMenuLinks();
@@ -107,19 +190,19 @@ function startApp() {
     $("#buttonRegisterUser").click(registerUser);
     $("#buttonCreatePost").click(createPost);
     $("#buttonEditPost").click(editPost);
-    $("#buttonUploadPhoto").click(uploadPhoto);
+  //  $("#buttonUploadPhoto").click(uploadPhoto);
 
 
 
 
 
     function loginUser(){
-
         let loginData = {
             username: $('#formLogin input[name=username]').val(),
             password: $('#formLogin input[name=passwd]').val()
 
         };
+
 
         if(loginData.username.length>=20){
 
@@ -149,6 +232,7 @@ function startApp() {
             showInfo('Login was successful');
             sessionStorage.setItem("username", userInfo.username);
             sessionStorage.setItem("authToken", userInfo._kmd.authtoken);
+            getSessionToken();
             showHideMenuLinks(); // refreshesh the links after the sessison change
         }
 
