@@ -1,137 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Travel Blog</title>
-    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.1.min.js"></script>
-    <script src="scripts/navigation.js"></script>
-    <link rel="stylesheet" type="text/css" href="style/styles.css">
-    <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Travel Book</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/full-width-pics.css" rel="stylesheet">
+
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/navigation.js"></script>
 </head>
 <body onload="startApp()">
-<div id="content">
-<div id="menu" class="menu">
-    <ul>
-        <li> <a href="#" id="linkHome">Home</a></li>
-        <li> <a href="#" id="linkLogin">Login</a></li>
-        <li> <a href="#" id="linkRegister">Register</a></li>
-        <li> <a href="#" id="linkListPosts">Posts</a></li>
-        <li> <a href="#" id="linkCreatePost">Create Post</a></li>
-        <li> <a href="#" id="linkLogout">Logout</a></li>
 
-    </ul>
-    <span id="loggedInUser"></span>
-</div>
-<div id="main">
+    <!-- Navigation section -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Travel book</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Travel Book</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <div id="menu" class="menu">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="#about-section" id="linkHome">About</a>
+                        </li>
+                        <li>
+                            <a href="#viewLogin" id="linkLogin">Login</a>
+                        </li>
+                        <li>
+                            <a href="#viewRegister" id="linkRegister">Register</a>
+                        </li>
+                        <li>
+                            <a href="#viewPosts" id="linkListPosts">Show Posts</a>
+                        </li>
+                        <li>
+                            <a href="#viewCreatePost" id="linkCreatePost">Create Post</a>
+                        </li>
+                        <li>
+                            <a href="#" id="linkLogout">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+                <span id="loggedInUser"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Ajax response -->
+
+
+    <header class="image-bg-fluid-height" id="viewHome">
+        <img class="img-responsive img-center" src="./images/logo.jpg" alt="logo"> <!-- Add the logo here -->
+    </header>
+    <!-- Content Section -->
+    <section id="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="section-heading">About the site</h1>
+                    <p class="lead section-lead">If you want to share memories from trips with your friends that is the right place!</p>
+                    <p class="section-paragraph">Create account. Upload photos and enjoy, you can upload what you want. Lets your friends know where have you been. You can add tags and content to the pictures, or comment others ... Your choice!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+<main>
+
+
+
+    <!-- Fixed Height Image Aside -->
+    <!-- Image backgrounds are set within the full-width-pics.css file. -->
+    <aside class="image-bg-fixed-height"></aside>
     <div id="navigation">
         <div id="loadingBox">Loading...</div>
         <div id="infoBox">Info</div>
         <div id="errorBox">Error</div>
-        <div id="viewHome">
-            <h1 class="title">Welcome</h1>
-            <p class="body-text">Welcome to our Travel Blog.</p>
-            <br><br>
-        </div>
-        <div id="viewLogin">
+    </div>
+    <!-- Login Section -->
+    <section id="viewLogin">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="titleForm">Please login </h1>
+                    <form id="formLogin" class="form">
+                        <div class="control-group">
+                            <input type="text" class="field" value="" placeholder="username" id="login_name" name="username">
+                            <label class="login-field-icon fui-user" for="login_name"></label>
+                        </div>
 
-            <h1 class="titleForm">Please login </h1>
-            <form id="formLogin" class="form">
-                <div class="control-group">
-                    <input type="text" class="field" value="" placeholder="username" id="login_name" name="username">
-                    <label class="login-field-icon fui-user" for="login_name"></label>
+                        <div class="control-group">
+                            <input type="password" class="field" value="" placeholder="password" id="login-pass" name="passwd">
+                            <label class="login-field-icon fui-lock" for="login-pass"></label>
+                        </div>
+                        <div><input type="button" id="buttonLoginUser" value="Login"/></div>
+                    </form>
                 </div>
-
-                <div class="control-group">
-                    <input type="password" class="field" value="" placeholder="password" id="login-pass" name="passwd">
-                    <label class="login-field-icon fui-lock" for="login-pass"></label>
-                </div>
-                <div><input type="button" id="buttonLoginUser" value="Login"/></div>
-            </form>
-
-        </div>
-        <div id="viewRegister">
-            <h1 class="titleForm"> Please register here</h1>
-            <form id="formRegister" class="form">
-                <div class="control-group">
-                    <input type="text" class="field" value="" placeholder="username" id="register_name" name="username">
-                    <label class="login-field-icon fui-user" for="login_name"></label>
-                </div>
-
-
-                <div class="control-group">
-                    <input type="password" class="field" value="" placeholder="password" id="register_pass" name="passwd">
-                    <label class="login-field-icon fui-lock" for="login-pass"></label>
-                </div>
-                <div><input type="button" id="buttonRegisterUser" value="Register"/></div>
-            </form>
-        </div>
-        <div id="viewPosts">
-            <h1 class="titleForm">Posts</h1>
-            <div id="posts">
-                <table >
-                    <tr>
-                        <th>Title</th>
-                        <th>Author</th>
-                        <th>Description</th>
-
-                    </tr>
-                    <tr>
-                        <td>Post title</td>
-                        <td>Post author</td>
-                        <td>Post description</td>
-                        <td>
-                            <a href="#">[Delete]</a>
-                            <a href="#">[Edit]</a>
-                        </td>
-                    </tr>
-                </table>
             </div>
         </div>
-        <div id="viewCreatePost">
-            <h1 class="titleForm">Create new post</h1>
-            <form id="formCreatePost" class="form">
-                <div class="control-group">
-                    <input type="text" class="field" value="" placeholder="Title" id="Title" name="title">
-                    <label class="login-field-icon fui-user" for="Title"></label>
-                </div>
-                <div class="control-group">
-                    <input type="text" class="field" value="" placeholder="Author" id="Author" name="author">
-                    <label class="login-field-icon fui-user" for="Author"></label>
-                </div>
-                <div>
-                    <textarea rows="10" value="" placeholder="Description" id="Description" name="descr"></textarea>
-                    <label class="login-field-icon fui-user" for="Description"></label>
-                </div>
+    </section>
 
-                <div><input type="date" name="datePublished" required /></div>
-                <div class="control-group">
-                    <input type="text" class="field" value="" placeholder="Image url" id="Img" name="image">
-                    <label class="login-field-icon fui-user" for="Img"></label>
-                </div>
+    <!-- Register Section -->
+    <section id="viewRegister">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="titleForm"> Please register here</h1>
+                    <form id="formRegister" class="form">
+                        <div class="control-group">
+                            <input type="text" class="field" value="" placeholder="username" id="register_name" name="username">
+                            <label class="login-field-icon fui-user" for="register_name"></label>
+                        </div>
 
-                <div><input type="button" id="buttonCreatePost" value="Create"></div>
-            </form>
+
+                        <div class="control-group">
+                            <input type="password" class="field" value="" placeholder="password" id="register_pass" name="passwd">
+                            <label class="login-field-icon fui-lock" for="register_pass"></label>
+                        </div>
+                        <div><input type="button" id="buttonRegisterUser" value="Register"/></div>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div id="viewEditPost">
+    </section>
 
-                <h1 class="titleForm">Edit existing Post</h1>
-                <form id="formEditPost" class="form">
-                    <div><input type="hidden" name="id" required/></div>
-                    <div>Title:</div>
-                    <div><input type="text" name="title" required/></div>
-                    <div>Author:</div>
-                    <div><input type="text" name="author" required/></div>
-                    <div>Description:</div>
-                    <div><textarea name="descr" rows="10" required></textarea></div>
-                    <div><input type="button" id="buttonEditPost" value="Edit"></div>
+    <!-- Show posts -->
+    <section id="viewPosts">
+        <div class="container">
+
+        </div>
+    </section>
+
+    <!-- Create post -->
+    <section id="viewCreatePost">
+        <div class="container">
+            <div class="row">
+                <h1 class="titleForm">Create new post</h1>
+                <form id="formCreatePost" class="form">
+                    <div class="control-group">
+                        <input type="text" class="field" value="" placeholder="Title" id="Title" name="title">
+                        <label class="login-field-icon fui-user" for="Title"></label>
+                    </div>
+                    <div>
+                        <textarea rows="10" value="" placeholder="contentPost" id="contentPost" name="contentPost"></textarea>
+                        <label class="login-field-icon fui-user" for="contentPost"></label>
+                    </div>
+
+                    <div><input type="date" name="datePublished" required /></div>
+                    <div class="control-group">
+                        <input type="text" class="field" value="" placeholder="Image url" id="Img" name="image">
+                        <label class="login-field-icon fui-user" for="Img"></label>
+                    </div>
+
+                    <div><input type="button" id="buttonCreatePost" value="Create"></div>
                 </form>
-
+            </div>
         </div>
-    </div>
-</div>
-</div>
-<div id="footer">
-    Travel Blog - Simple SPA Application
-</div>
+    </section>
+</main>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Powered by students from Software University</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
 </body>
 </html>
