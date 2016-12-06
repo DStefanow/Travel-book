@@ -186,3 +186,6 @@ input[type=button]:hover{
     transform: scale(1.1);
     cursor: pointer;
 }
+input[type=file]{
+
+}
